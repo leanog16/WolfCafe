@@ -22,12 +22,7 @@ function Inventory() {
 
   const [showModal, setShowModal] = useState(false);
 
-  const [inventory, setInventory] = useState([
-    { ingredientName: 'Sugar', amount: 12 },
-    { ingredientName: 'Coffee', amount: 25 },
-    { ingredientName: 'Milk', amount: 40 },
-    { ingredientName: 'Carmel', amount: 5 }
-  ])
+  const [inventory, setInventory] = useState([])
 
   const [error, setError ] = useState('')
 
@@ -36,9 +31,7 @@ function Inventory() {
       try {
         const response = await getInventory()
         const ingredients = response.data?.ingredients
-        if (Array.isArray(ingredients) && ingredients.length > 0) {
-          setInventory(ingredients)
-        }
+        setInventory(Array.isArray(ingredients) ? ingredients : [])
       } catch (error) {
         console.error(error)
         setError('Failed to load Inventory.')
@@ -153,6 +146,11 @@ function Inventory() {
                     </td>
                   </tr>
                 ))}
+                {inventory.length === 0 && (
+                  <tr>
+                    <td colSpan='4'>No ingredients yet. Add one below.</td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>

@@ -9,6 +9,7 @@ function Login() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [showHelp, setShowHelp] = useState(false)
 
   const handleLogin = async () => {
     setError('')
@@ -56,6 +57,38 @@ function Login() {
           <p id='login-register-button' onClick={() => navigate('/register')}>Register</p>
         </div>
       </div>
+
+      {showHelp && (
+        <div id='login-help-panel' role='dialog' aria-label='About this demo'>
+          <p>
+            This is a demo built for a class project. Feel free to look around.
+          </p>
+          <p>
+            Test accounts (username / password "password"):
+          </p>
+          <ul>
+            <li><strong>admin</strong></li>
+            <li><strong>staff</strong></li>
+            <li><strong>customer</strong></li>
+          </ul>
+          <p>
+            You can also register your own customer account, or create a staff
+            account from the admin page.
+          </p>
+          <p>
+            The database resets every day at midnight.
+          </p>
+        </div>
+      )}
+
+      <button
+        id='login-help-button'
+        aria-label='About this demo'
+        aria-expanded={showHelp}
+        onClick={() => setShowHelp(prev => !prev)}
+      >
+        ?
+      </button>
     </div>
   )
 }
